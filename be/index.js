@@ -10,8 +10,8 @@ const wss = new WebSocket.Server({ server });
 const clientMap = new Map();
 wss.on("connection", function connection(ws) {
     console.log("connection opened");
-    // const ide = uuidv4();
-    // clientMap.set(ws, ide);
+    const ide = uuidv4();
+    clientMap.set(ws, ide);
     ws.on("message", function message(data) {
         const msg = JSON.parse(data);
         // ws.send(JSON.stringify(msg));

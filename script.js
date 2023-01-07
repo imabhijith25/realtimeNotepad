@@ -3,8 +3,30 @@ let userId = document.getElementById("id");
 let button = document.getElementById("connect");
 
 const textboxarea = document.getElementById("textboxarea");
+
+const debounce = function (fnc, timeout = 300) {
+    let timer;
+    return (...args) => {
+        console.log(args);
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            fnc(args[0]);
+        }, timeout);
+    };
+};
+// const fnc = () => {
+//     console.log("hii");
+// };
+// const returned = debounce(fnc);
+
+const delayedSending = (val) => {
+    console.log("sending");
+    socket.send(JSON.stringify(val));
+};
+const delay = debounce(delayedSending);
 textboxarea.addEventListener("keyup", (e) => {
-    socket.send(JSON.stringify(e.target.value));
+    // socket.send(JSON.stringify(e.target.value));
+    delay(e.target.value);
 });
 button.addEventListener("click", (e) => {
     console.log("clicked");
